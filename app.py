@@ -40,13 +40,8 @@ try:
         elif (request.method == 'POST'):
             data = request.json
             print("This is client data", data)
-            client_animal = "owl"
-
-            resp = {
-                "animal" : client_animal
-            }
-
-            animal_list.append(resp)
+          
+            animal_list.append(data)
             return Response(json.dumps(animal_list),
                                     mimetype="application/json",
                                     status=200) 
@@ -54,16 +49,20 @@ try:
             data = request.json
             print("This is client data", data)
 
-            animal_list[1] = {"animal" : 'Hippo'}
+            animal_list[1] = data
             return Response(json.dumps(animal_list),
                                     mimetype="application/json",
                                     status=200) 
         elif (request.method == 'DELETE'):
             data = request.json
             print("This is client data", data)
+            animal_selection = data["animal"]
             
-            animal_list.pop(2)
-            return Response(json.dumps(animal_list),
+            resp = {
+                "animal": animal_selection
+            }
+         
+            return Response(json.dumps(resp),
                                     mimetype="application/json",
                                     status=200)
         else:
